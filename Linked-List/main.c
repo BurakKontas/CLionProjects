@@ -48,6 +48,18 @@ void addNode(dat data){
     last = N;
 }
 
+void removeNode(int index) {
+
+}
+
+void insertNode(dat data,int index) {
+
+}
+
+void showNode(){
+
+}
+
 int main() {
     first = create(first);
     last = create(last);//might be unnecessary but doesnt have any loss
@@ -60,17 +72,15 @@ int main() {
         int selection;
         printf("Enter a Number: ");
         scanf("%d",&selection);
-        if(selection == 0) {
+        if(selection == 1) {
             printf("Name: ");
             gets();
-        } else if(selection == 1) {
-
         } else if(selection == 2) {
-
+            removeNode();
         } else if(selection == 3) {
-
+            insertNode();
         } else if(selection == 4) {
-
+            showNode();
         } else if(selection == 5) {
             printf("User Quited");
             break;
