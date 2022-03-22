@@ -47,7 +47,7 @@ int indexControl(int index){
 
 node* find(int index){
     if(indexControl(index) == -1) return NULL;//maxIndex control
-    index -= 1;
+    --index;
     node* nod = first;
     if(index == 1) return first;
     for (int i = 0; i < index - 1; i++) {//we want previous
@@ -71,19 +71,32 @@ void addNode(dat data){
 
 void removeNode(int index) {
     if(indexControl(index) == -1) return;
+    --index;//indexing starts from 1
+    node *temp = find(index);
+    if(temp == first){
+        first->next->prev = NULL;
+        temp = first;
+        first = first->next;
+    } else {
+        temp->next = temp->next->next;
+        temp->next->next->prev = temp;
+    }
+    free(temp);
     maxIndex--;
 }
 
 void insertNode(dat data,int index) {
-
+    if(indexControl(index) == -1) return;
+    node* temp = find(index);
     maxIndex++;
 }
 
 void showNode(){
     node* temp = first;
+    int i=0;
     while(temp->next != NULL) {
-        if(temp != first) printf("--------------------");
-        printf("No: %d\nName: %s\nSurname: %s\nAddress: %s\n",temp->data.no,temp->data.name,temp->data.surname,temp->data.address);
+        printf("--------------------\n");
+        printf("%d-)\nNo: %d\nName: %s\nSurname: %s\nAddress: %s\n",++i,temp->data.no,temp->data.name,temp->data.surname,temp->data.address);
         temp = temp->next;
     }
 }
@@ -117,7 +130,11 @@ int main() {
             gets(data.address);
             addNode(data);
         } else if(selection == 2) {
-            //removeNode();
+            int value;
+            showNode();
+            printf("Which Index Do You Want To Remove: ");
+            scanf("%d",&value);
+            removeNode(value);
         } else if(selection == 3) {
             //insertNode();
         } else if(selection == 4) {
