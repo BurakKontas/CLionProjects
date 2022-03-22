@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #define N 10
 
 //to making addable and removable queue list we will use linked lists
@@ -136,10 +135,8 @@ int main() {
     while(1) {
         char list[][N] = {"--MENU--","Add","Remove","Show","Insert","Move","Quit"};
         for (int i = 0; i < sizeof(list)/N; ++i) {
-            char temp[N];
-            strcpy(temp,list[i]);
-            if(i == 0) printf("%10s\n",temp);
-            else printf("%d-) %s\n",i,temp);
+            if(i == 0) printf("%10s\n",list[i]);
+            else printf("%d-) %s\n",i,list[i]);
         }
         int selection;
         printf("Selection:");
