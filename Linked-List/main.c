@@ -49,6 +49,7 @@ dat dataCreator(){
     gets(data.surname);
     printf("Address: ");
     gets(data.address);
+    fflush(stdin);
     return data;
 }
 
@@ -128,27 +129,35 @@ void showNode(){
     }
 }
 
+void changeData(node* one,node* two,node* temp) {
+    temp->data = one->data;
+    one->data = two->data;
+    two->data = temp->data;
+    one = one->next;
+    two = two->next;
+    //or you can exchange next and prev's to change datas
+}
+
 void sortedView(int mode){
     node* one = first;
     node* two = first->next;
     node* temp = memory();
     if(mode == 1) {//no
         while(two->next != NULL) {
-            if (one->data.no > two->data.no) {
-                temp->data = one->data;
-                one->data = two->data;
-                two->data = temp->data;
-                one = one->next;
-                two = two->next;
-                //or you can exchange next and prev's to change datas
-            }
+            if (one->data.no > two->data.no) changeData(one,two,temp);
         }
     } else if(mode == 2) {//name
-
+        while(two->next != NULL) {
+            if(strlen(one->data.name) > strlen(two->data.name)) changeData(one,two,temp);
+        }
     } else if(mode == 3) {//surname
-
+        while(two->next != NULL) {
+            if(strlen(one->data.surname) > strlen(two->data.surname)) changeData(one,two,temp);
+        }
     } else if(mode == 4) {//address
-
+        while(two->next != NULL) {
+            if(strlen(one->data.address) > strlen(two->data.address)) changeData(one,two,temp);
+        }
     } else {
         printf("Wrong Mode Number\n");
     }
