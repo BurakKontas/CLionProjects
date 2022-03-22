@@ -87,7 +87,13 @@ void removeNode(int index) {
 
 void insertNode(dat data,int index) {
     if(indexControl(index) == -1) return;
+    node* main = memory();
+    main->data = data;
     node* temp = find(index);
+    main->next = temp->next;
+    temp->next->prev = main;
+    temp->next = main;
+    main->prev = temp;
     maxIndex++;
 }
 
