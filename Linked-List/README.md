@@ -1,7 +1,17 @@
 2 Yönlü Bağlı Liste
 
-Vizeye Doğru Çalışma Projesi
+.
 
-Azıcık ilgi çekici olsun dedik:
-Bir bağlı listede bulunan sayılardan çift olanları eleyen ve sadece tek sayıları bırakan programı filter fonksiyonu yazınız.
+Klavyeden gelen
+İsim Soyisim TCNO Adres'leri tutacak, 
+Her birine göre sıralı yazdırabilecek
 
+String verileri Uzunluklarına Göre Sıralayacak
+
+.
+
+
+
+Ekleme,Çıkarma,Araya Ekleme Gösterme Fonksiyonları
+
+Vize Çalışma Projesi
