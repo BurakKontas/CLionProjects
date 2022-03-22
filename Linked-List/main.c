@@ -86,7 +86,6 @@ void addNode(dat data){
 
 void removeNode(int index) {
     if(indexControl(index) == -1) return;
-    --index;//indexing starts from 1
     node *temp = find(index);
     if(temp == first){
         first->next->prev = NULL;
@@ -109,13 +108,15 @@ void insertNode(dat data,int index) {
         main->next = first;
         main->prev = NULL;
         first = main;
-    } else {
-        node *temp = find(index);
-        main->next = temp->next;
-        temp->next->prev = main;
-        temp->next = main;
-        main->prev = temp;
+        return;
     }
+    node *temp = find(index);
+    --index;
+    main->next = temp->next;
+    temp->next->prev = main;
+    temp->next = main;
+    main->prev = temp;
+
     maxIndex++;
 }
 
@@ -133,8 +134,6 @@ void changeData(node* one,node* two,node* temp) {
     temp->data = one->data;
     one->data = two->data;
     two->data = temp->data;
-    one = one->next;
-    two = two->next;
     //or you can exchange next and prev's to change datas
 }
 
@@ -143,20 +142,52 @@ void sortedView(int mode){
     node* two = first->next;
     node* temp = memory();
     if(mode == 1) {//no
-        while(two->next != NULL) {
-            if (one->data.no > two->data.no) changeData(one,two,temp);
+        for(int i = 0;i<maxIndex;i++){
+            for(int j = 0;j<maxIndex-1;j++) {
+                if (one->data.no > two->data.no) {
+                    temp->data = one->data;
+                    one->data = two->data;
+                    two->data = temp->data;
+                }
+                one = one->next;
+                two = two->next;
+            }
         }
     } else if(mode == 2) {//name
-        while(two->next != NULL) {
-            if(strlen(one->data.name) > strlen(two->data.name)) changeData(one,two,temp);
+        for(int i = 0;i<maxIndex;i++){
+            for(int j = 0;j<maxIndex-1;j++) {
+                if(strlen(one->data.name) > strlen(two->data.name)) {
+                    temp->data = one->data;
+                    one->data = two->data;
+                    two->data = temp->data;
+                }
+                one = one->next;
+                two = two->next;
+            }
         }
     } else if(mode == 3) {//surname
-        while(two->next != NULL) {
-            if(strlen(one->data.surname) > strlen(two->data.surname)) changeData(one,two,temp);
+        for(int i = 0;i<maxIndex;i++){
+            for(int j = 0;j<maxIndex-1;j++) {
+                if(strlen(one->data.surname) > strlen(two->data.surname)) {
+                    temp->data = one->data;
+                    one->data = two->data;
+                    two->data = temp->data;
+                }
+                one = one->next;
+                two = two->next;
+            }
         }
     } else if(mode == 4) {//address
-        while(two->next != NULL) {
-            if(strlen(one->data.address) > strlen(two->data.address)) changeData(one,two,temp);
+        for(int i = 0;i<maxIndex;i++){
+            for(int j = 0;j<maxIndex-1;j++) {
+                if(strlen(one->data.address) > strlen(two->data.address)) {
+                    temp->data = one->data;
+                    one->data = two->data;
+                    two->data = temp->data;
+                }
+                one = one->next;
+                two = two->next;
+            }
         }
     } else {
         printf("Wrong Mode Number\n");
