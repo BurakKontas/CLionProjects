@@ -38,6 +38,20 @@ node* create(node* N){
     return N;
 }
 
+dat dataCreator(){
+    dat data;
+    printf("No: ");
+    scanf("%d",&data.no);
+    fflush(stdin);
+    printf("Name: ");
+    gets(data.name);
+    printf("Surname: ");
+    gets(data.surname);
+    printf("Address: ");
+    gets(data.address);
+    return data;
+}
+
 int indexControl(int index){
     if(index > maxIndex) {
         printf("Out of Range\n");
@@ -89,11 +103,18 @@ void insertNode(dat data,int index) {
     if(indexControl(index) == -1) return;
     node* main = memory();
     main->data = data;
-    node* temp = find(index);
-    main->next = temp->next;
-    temp->next->prev = main;
-    temp->next = main;
-    main->prev = temp;
+    if(index == 1) {
+        first->prev = main;
+        main->next = first;
+        main->prev = NULL;
+        first = main;
+    } else {
+        node *temp = find(index);
+        main->next = temp->next;
+        temp->next->prev = main;
+        temp->next = main;
+        main->prev = temp;
+    }
     maxIndex++;
 }
 
@@ -124,16 +145,7 @@ int main() {
         printf("Enter a Number: ");
         scanf("%d",&selection);
         if(selection == 1) {
-            dat data;
-            printf("No: ");
-            scanf("%s",&data.no);
-            fflush(stdin);
-            printf("Name: ");
-            gets(data.name);
-            printf("Surname: ");
-            gets(data.surname);
-            printf("Address: ");
-            gets(data.address);
+            dat data = dataCreator();
             addNode(data);
         } else if(selection == 2) {
             int value;
@@ -142,7 +154,12 @@ int main() {
             scanf("%d",&value);
             removeNode(value);
         } else if(selection == 3) {
-            //insertNode();
+            int index;
+            showNode();
+            printf("Enter the index after the place you want to add: ");
+            scanf("%d",&index);
+            dat data = dataCreator();
+            insertNode(data,index);
         } else if(selection == 4) {
             showNode();
         } else if(selection == 5) {
