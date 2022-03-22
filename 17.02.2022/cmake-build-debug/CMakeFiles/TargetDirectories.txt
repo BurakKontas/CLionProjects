@@ -1,0 +1,3 @@
+C:/Users/konta/CLionProjects/17.02.2022/cmake-build-debug/CMakeFiles/17_02_2022.dir
+C:/Users/konta/CLionProjects/17.02.2022/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/konta/CLionProjects/17.02.2022/cmake-build-debug/CMakeFiles/rebuild_cache.dir
