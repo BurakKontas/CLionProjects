@@ -5,12 +5,6 @@
 //to making addable and removable queue list we will use linked lists
 //one way link may be enough
 
-//imagine a film queue (because I did)
-//people joining queue (add)
-//people can insert (insert) in or leave it (remove)
-//or film starts and employee lets people in (move)
-//and ofcourse you can see queue (show)
-
 struct Node{
     struct Node *next;
     int value;
