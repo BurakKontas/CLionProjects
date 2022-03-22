@@ -4,6 +4,14 @@
 
 #define Num 12
 
+/*
+ * Data adında bir struct yaratıp bağlı liste kullandım
+ * Add Remove Insert Show metodlarımda bir sıkıntı yok
+ * Sort algoritmalarımda bir sıkıntı var çözemedim
+ * maxIndex global bir değişkenim her add ve insert işleminde 1 artıp removede 1 azalıyor
+ * Böylece döngüler için dizi eleman sayısını elimde tutuyorum
+ * Sanıyorum Bubble Sort algoritmasını yanlış kurdum ama çözemedim
+ */
 
 struct Data{
     char name[20];
