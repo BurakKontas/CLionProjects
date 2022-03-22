@@ -129,7 +129,29 @@ void showNode(){
 }
 
 void sortedView(int mode){
+    node* one = first;
+    node* two = first->next;
+    node* temp = memory();
+    if(mode == 1) {//no
+        while(two->next != NULL) {
+            if (one->data.no > two->data.no) {
+                temp->data = one->data;
+                one->data = two->data;
+                two->data = temp->data;
+                one = one->next;
+                two = two->next;
+                //or you can exchange next and prev's to change datas
+            }
+        }
+    } else if(mode == 2) {//name
 
+    } else if(mode == 3) {//surname
+
+    } else if(mode == 4) {//address
+
+    } else {
+        printf("Wrong Mode Number\n");
+    }
 }
 
 int main() {
@@ -163,7 +185,14 @@ int main() {
         } else if(selection == 4) {
             showNode();
         } else if(selection == 5) {
-            //sortedView();//bubble sort
+            int mode;
+            printf("1-) No (Number)\n");
+            printf("2-) Name (Lenght)\n");
+            printf("3-) Surname (Lenght)\n");
+            printf("4-) Address (Lenght)\n");
+            printf("Which Mode Do You Want: ");
+            scanf("%d",&mode);
+            sortedView(mode);//bubble sort
         } else if(selection == 6) {
             printf("User Quited");
             break;
