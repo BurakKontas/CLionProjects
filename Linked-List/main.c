@@ -57,13 +57,22 @@ void insertNode(dat data,int index) {
 }
 
 void showNode(){
+    node* temp = first;
+    while(temp->next != NULL) {
+        if(temp != first) printf("--------------------");
+        printf("No: %d\nName: %s\nSurname: %s\nAddress: %s\n",temp->data.no,temp->data.name,temp->data.surname,temp->data.address);
+        temp = temp->next;
+    }
+}
+
+void sort(){
 
 }
 
 int main() {
     first = create(first);
     last = create(last);//might be unnecessary but doesnt have any loss
-    char menu[][Num] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Quit"};
+    char menu[][Num] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Sort","Quit"};
     while(1){
         for(int i = 0;i<sizeof(menu)/Num;i++) {
             if(i == 0) printf("%7s\n",menu[i]);
@@ -73,15 +82,26 @@ int main() {
         printf("Enter a Number: ");
         scanf("%d",&selection);
         if(selection == 1) {
+            dat data;
+            printf("No: ");
+            scanf("%s",&data.no);
+            fflush(stdin);
             printf("Name: ");
-            gets();
+            gets(data.name);
+            printf("Surname: ");
+            gets(data.surname);
+            printf("Address: ");
+            gets(data.address);
+            addNode(data);
         } else if(selection == 2) {
-            removeNode();
+            //removeNode();
         } else if(selection == 3) {
-            insertNode();
+            //insertNode();
         } else if(selection == 4) {
             showNode();
         } else if(selection == 5) {
+            sort();//bubble sort
+        } else if(selection == 6) {
             printf("User Quited");
             break;
         }
