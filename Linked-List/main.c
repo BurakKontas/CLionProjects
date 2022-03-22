@@ -65,14 +65,14 @@ void showNode(){
     }
 }
 
-void sort(){
+void sortedView(int mode){
 
 }
 
 int main() {
     first = create(first);
     last = create(last);//might be unnecessary but doesnt have any loss
-    char menu[][Num] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Sort","Quit"};
+    char menu[][Num] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Sorted View","Quit"};
     while(1){
         for(int i = 0;i<sizeof(menu)/Num;i++) {
             if(i == 0) printf("%7s\n",menu[i]);
@@ -100,7 +100,7 @@ int main() {
         } else if(selection == 4) {
             showNode();
         } else if(selection == 5) {
-            sort();//bubble sort
+            //sortedView();//bubble sort
         } else if(selection == 6) {
             printf("User Quited");
             break;
