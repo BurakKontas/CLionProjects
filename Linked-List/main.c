@@ -22,6 +22,8 @@ struct Node{
 
 typedef struct Node node;
 
+int maxIndex = 0;
+
 node* first;
 node* last;
 
@@ -36,6 +38,24 @@ node* create(node* N){
     return N;
 }
 
+int indexControl(int index){
+    if(index > maxIndex) {
+        printf("Out of Range\n");
+        return -1;
+    }
+}
+
+node* find(int index){
+    if(indexControl(index) == -1) return NULL;//maxIndex control
+    index -= 1;
+    node* nod = first;
+    if(index == 1) return first;
+    for (int i = 0; i < index - 1; i++) {//we want previous
+        nod = nod->next;
+    }
+    return nod;
+}
+
 void addNode(dat data){
     node* N = memory();
     node* temp;
@@ -46,14 +66,17 @@ void addNode(dat data){
     N->next = NULL;
     N->prev = temp;
     last = N;
+    maxIndex++;
 }
 
 void removeNode(int index) {
-
+    if(indexControl(index) == -1) return;
+    maxIndex--;
 }
 
 void insertNode(dat data,int index) {
 
+    maxIndex++;
 }
 
 void showNode(){
