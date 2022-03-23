@@ -72,6 +72,7 @@ int main() {
         printf("Selection: ");
         int selection;
         scanf("%d",&selection);
+        fflush(stdin);
         if(selection == 1){
             push();
         }
