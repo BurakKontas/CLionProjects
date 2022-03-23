@@ -15,6 +15,7 @@
 //LList = Linked List
 
 struct UserData{
+    char priority;//smaller than integer
     int no;
     char name[20];
     char surname[20];
@@ -23,20 +24,20 @@ struct UserData{
 
 typedef struct UserData UData;
 
-struct Data{
-    char priority;//smaller than int
-    UData data;
-};
-//I seperated priority and userdata bcuz I'll build my structure priority changeable I think this will be useful
-typedef struct Data Data;
-
 struct LinkedList{
     struct LinkedList* next;//its oneway linkedlist bcuz we are making a queue
-    Data data;
+    UData data;
 };
 
 typedef struct LinkedList LList;
 
+void create(){
+
+}
+
+LList* memory(){
+    return (LList*)malloc(sizeof(LList));
+}
 
 int main() {
     //I'll store all queue starting addresses in this array
