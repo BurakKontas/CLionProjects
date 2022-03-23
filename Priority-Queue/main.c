@@ -42,21 +42,33 @@ LList* memory(){
 LList* firstQueues[MAXP];//beginnings
 LList* lastQueues[MAXP];//endings
 
-void push() {
-    LList* tempNode = memory();
-    UData tempData;
+int enterPrio(){
+    int prio;
     while(1) {
         printf("\bPriority: ");
-        scanf("%d", &tempData.priority);
+        scanf("%d", &prio);
         fflush(stdin);
-        if(tempData.priority > MAXP || tempData.priority < 1) {
+        if(prio > MAXP || prio < 1) {
             printf("\bLimit for priority is between 1-%d\n",MAXP);
             continue;
         }
         break;
     }
+    return prio;
+}
+
+int enterNo(){
+    int no;
     printf("\bNo: ");
-    scanf("%d",&tempData.no);
+    scanf("%d",&no);
+    return no;
+}
+//I seperated enterPriority and enterNo from push for insert. I'll use these functions again in insert
+void push() {
+    LList* tempNode = memory();
+    UData tempData;
+    tempData.priority = enterPrio();
+    tempData.no = enterNo();
     int prio = tempData.priority-1;
     tempNode->next = NULL;
     if(firstQueues[prio]->next == NULL) {
@@ -80,10 +92,14 @@ void insert() {
 
 void show() {
     LList* temp;
+    int m=0;
     for(int i = MAXP-1;i>-1;--i){
         temp = firstQueues[i];
         int n=0;
-        if(temp->next != NULL) printf("****************\n");
+        if(temp->next != NULL) {
+            printf("****************\n");
+            m++;
+        }
         while(temp->next != NULL) {
             printf("\b%d-)------\n",++n);
             printf("Priority: %d\n",temp->data.priority);
@@ -91,7 +107,12 @@ void show() {
             temp = temp->next;
         }
     }
-    printf("****************\n");
+    if(m == 0) {
+        printf("\b********************\n");
+        printf("\bYour Queue is Empty\n");
+        printf("********************\n");
+    }
+    if(temp->next != NULL) printf("****************\n");
 }
 
 void begin(){//I could write it in main but nvm this way looks more prettier
