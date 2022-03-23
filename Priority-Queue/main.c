@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #define MAXP 7//max priority
 
-
 //Priority queue data structure with linked lists
 //every priority level has their own queue
 //when showing we should keep max priority level
