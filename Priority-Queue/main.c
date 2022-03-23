@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 //some type of const usage
@@ -19,10 +18,12 @@
 
 struct UserData{
     unsigned char priority;//smaller than integer
-    unsigned int no;
+    int no;
+    /*
     char name[20];
     char surname[20];
     char address[50];
+    */
 };
 
 typedef struct UserData UData;
@@ -42,8 +43,30 @@ LList* firstQueues[MAXP];//beginnings
 LList* lastQueues[MAXP];//endings
 
 void push() {
-    LList* temp = memory();
-
+    LList* tempNode = memory();
+    UData tempData;
+    while(1) {
+        printf("\bPriority: ");
+        scanf("%d", &tempData.priority);
+        fflush(stdin);
+        if(tempData.priority > MAXP || tempData.priority < 1) {
+            printf("\bLimit for priority is between 1-%d\n",MAXP);
+            continue;
+        }
+        break;
+    }
+    printf("\bNo: ");
+    scanf("%d",tempData.no);
+    int prio = tempData.priority;
+    if(firstQueues[prio]->next == NULL) {
+        firstQueues[prio]->next = tempNode;
+        firstQueues[prio]->data = tempData;
+        tempNode->next = NULL;
+        lastQueues[prio] = tempNode;
+    } else {
+        lastQueues[prio]->next = tempNode;
+        lastQueues[prio]->data = tempData;
+    }
 }
 
 void pop() {
@@ -97,6 +120,7 @@ int main() {
         int selected = selection(menuSize);
         if(selected == 1){
             push();
+            printf("Test");
         }
         else if(selected == 2){
             pop();
