@@ -9,12 +9,12 @@
 //every priority level has their own queue
 //when showing we should keep max priority level
 //showing function works like:
-//  start from the highest priority's list and print them in order
+//  start from the highest priority's node and print them in order
 //  if the highest priority level queue is empty increase "int highest_level" variable (--highest_level)
 //TODO: functions: push,pop,show,edit(edits data's priority level)
 //Bank queue machine simulator
 
-//LList = Linked List
+//LList = Linked list
 
 struct UserData{
     int priority;
@@ -39,6 +39,7 @@ LList* memory(){
     return (LList*)malloc(sizeof(LList));
 }
 
+int maxIndexes[MAXP];
 LList* firstQueues[MAXP];//beginnings
 LList* lastQueues[MAXP];//endings
 
@@ -80,45 +81,72 @@ void push() {
         lastQueues[prio]->data = tempData;
         lastQueues[prio] = tempNode;
     }
+    maxIndexes[prio]++;
 }
 
-void pop() {
+LList* find(int prio,int index){
+    LList* node = firstQueues[prio];
+    if(index > maxIndexes[prio]) {
+        printf("Out of range (MAX: %d)",maxIndexes[prio]);
+        return NULL;
+    }
+    if(index == 1 || index == 2) return node;
+    for(int i = 0;i<index-1;++i){//we want previous
+        node = node->next;
+    }
+    return node;
+}
 
+void show(int prio) {
+    LList* temp;
+    temp = firstQueues[prio];
+    int n = 0;
+    if(temp->next != NULL) {
+        printf("\b****************\n");
+    }
+    while(temp->next != NULL) {
+        printf("\b%d-)------\n",++n);
+        printf("Priority: %d\n",temp->data.priority);
+        printf("No: %d\n",temp->data.no);
+        temp = temp->next;
+    }
+}
+
+
+void pop() {
+    int n = 0, prio = enterPrio() - 1;
+    if(maxIndexes[prio] == 0) {
+        printf("\bYour queue is empty\n");
+        return;
+    }
+    show(prio);
+    printf("****************\n");
+    int index;
+    printf("\bWhich index you want to pop: ");
+    scanf("%d", &index);
+    LList *node = find(prio, index);//returns us index-1th node
+    if (node == NULL) return;//find function returns null if index doesnt exists
+    if (index == 1) {//if first selected
+        firstQueues[prio] = node->next;
+        free(node);
+    } else {
+        LList* temp = node->next;
+        node->next = node->next->next;
+        free(temp);
+    }
+    maxIndexes[prio]--;
 }
 
 void insert() {
 
-}
-
-void show() {
-    LList* temp;
-    int m=0;
-    for(int i = MAXP-1;i>-1;--i){
-        temp = firstQueues[i];
-        int n=0;
-        if(temp->next != NULL) {
-            printf("****************\n");
-            m++;
-        }
-        while(temp->next != NULL) {
-            printf("\b%d-)------\n",++n);
-            printf("Priority: %d\n",temp->data.priority);
-            printf("No: %d\n",temp->data.no);
-            temp = temp->next;
-        }
-    }
-    if(m == 0) {
-        printf("\b********************\n");
-        printf("\bYour Queue is Empty\n");
-        printf("********************\n");
-    }
-    if(temp->next != NULL) printf("****************\n");
+    //maxIndexes[prio]++;
 }
 
 void begin(){//I could write it in main but nvm this way looks more prettier
     for(int i = 0;i<MAXP;++i) {
         firstQueues[i] = memory();
         firstQueues[i]->next = NULL;
+        maxIndexes[i] = 0;
     }
 }
 
@@ -162,7 +190,10 @@ int main() {
             insert();
         }
         else if(selected == 4){
-            show();
+            for(int i = MAXP-1;i>-1;--i){
+                show(i);
+            }
+            printf("****************\n");
         }
         else if(selected == 5){
             printf("\bUser Quited");
