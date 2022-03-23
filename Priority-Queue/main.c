@@ -17,7 +17,7 @@
 //LList = Linked List
 
 struct UserData{
-    unsigned char priority;//smaller than integer
+    int priority;
     int no;
     /*
     char name[20];
@@ -56,16 +56,17 @@ void push() {
         break;
     }
     printf("\bNo: ");
-    scanf("%d",tempData.no);
-    int prio = tempData.priority;
+    scanf("%d",&tempData.no);
+    int prio = tempData.priority-1;
+    tempNode->next = NULL;
     if(firstQueues[prio]->next == NULL) {
         firstQueues[prio]->next = tempNode;
         firstQueues[prio]->data = tempData;
-        tempNode->next = NULL;
         lastQueues[prio] = tempNode;
     } else {
         lastQueues[prio]->next = tempNode;
         lastQueues[prio]->data = tempData;
+        lastQueues[prio] = tempNode;
     }
 }
 
@@ -78,7 +79,19 @@ void insert() {
 }
 
 void show() {
-
+    LList* temp;
+    for(int i = MAXP-1;i>-1;--i){
+        temp = firstQueues[i];
+        int n=0;
+        if(temp->next != NULL) printf("****************\n");
+        while(temp->next != NULL) {
+            printf("\b%d-)------\n",++n);
+            printf("Priority: %d\n",temp->data.priority);
+            printf("No: %d\n",temp->data.no);
+            temp = temp->next;
+        }
+    }
+    printf("****************\n");
 }
 
 void begin(){//I could write it in main but nvm this way looks more prettier
@@ -120,7 +133,6 @@ int main() {
         int selected = selection(menuSize);
         if(selected == 1){
             push();
-            printf("Test");
         }
         else if(selected == 2){
             pop();
