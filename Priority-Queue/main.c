@@ -38,6 +38,22 @@ LList* memory(){
     return (LList*)malloc(sizeof(LList));
 }
 
+void push() {
+
+}
+
+void pop() {
+
+}
+
+void insert() {
+
+}
+
+void show() {
+
+}
+
 int main() {
     //I'll store all queue starting addresses in this array
     LList* queues[MAXP] = {memory(),memory(),memory(),memory(),memory(),memory(),memory()};//starting addresses
@@ -57,19 +73,20 @@ int main() {
         int selection;
         scanf("%d",&selection);
         if(selection == 1){
-
+            push();
         }
         else if(selection == 2){
-
+            pop();
         }
         else if(selection == 3){
-
+            insert();
         }
         else if(selection == 4){
-
+            show();
         }
         else if(selection == 5){
-
+            printf("User Quited");
+            break;
         }
     }
     return 0;
