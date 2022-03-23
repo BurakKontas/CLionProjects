@@ -38,7 +38,11 @@ LList* memory(){
     return (LList*)malloc(sizeof(LList));
 }
 
+LList* firstQueues[MAXP];//beginnings
+LList* lastQueues[MAXP];//endings
+
 void push() {
+    LList* temp = memory();
 
 }
 
@@ -54,39 +58,57 @@ void show() {
 
 }
 
+void begin(){//I could write it in main but nvm this way looks more prettier
+    for(int i = 0;i<MAXP;++i) {
+        firstQueues[i] = memory();
+        firstQueues[i]->next = NULL;
+    }
+}
+
+int menu(){
+    const char MENU[][MAXM] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Quit"};//unchangeable
+    for (int i = 0; i < sizeof(MENU) / MAXM; ++i) {
+        if (i == 0) printf("\b%s\n", MENU[i]);
+        else printf("%d-) %s\n", i, MENU[i]);
+    }
+    return (sizeof(MENU)/MAXM-1);
+}
+
+int selection(int limit){//with this way i can use selection more than one
+    int selected;
+    while(1) {
+        printf("Selection: ");
+        scanf("%d", &selected);
+        fflush(stdin);
+        if(selected > limit || selected < 1) {
+            printf("\bLimit is between 1-%d\n",limit);
+            continue;
+        }
+        break;
+    }
+    return selected;
+}
+
 int main() {
     //I'll store all queue starting addresses in this array
-    LList* queues[MAXP] = {memory(),memory(),memory(),memory(),memory(),memory(),memory()};//starting addresses
-    /*
-     * LList* queues[MAXP];
-     * for(int i = 0,i<MAXP,++i) {
-     *      queues[i] = memory();
-     * }
-    */
-    const char MENU[][MAXM] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Quit"};//unchangeable
+    begin();
     while(1) {
-        for (int i = 0; i < sizeof(MENU) / MAXM; ++i) {
-            if (i == 0) printf("%s\n", MENU[i]);
-            else printf("%d-) %s\n", i, MENU[i]);
-        }
-        printf("Selection: ");
-        int selection;
-        scanf("%d",&selection);
-        fflush(stdin);
-        if(selection == 1){
+        int menuSize = menu();
+        int selected = selection(menuSize);
+        if(selected == 1){
             push();
         }
-        else if(selection == 2){
+        else if(selected == 2){
             pop();
         }
-        else if(selection == 3){
+        else if(selected == 3){
             insert();
         }
-        else if(selection == 4){
+        else if(selected == 4){
             show();
         }
-        else if(selection == 5){
-            printf("User Quited");
+        else if(selected == 5){
+            printf("\bUser Quited");
             break;
         }
     }
