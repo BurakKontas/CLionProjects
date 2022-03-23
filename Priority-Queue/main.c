@@ -130,7 +130,7 @@ void pop() {
     if (index == 1) {//if first selected
         firstQueues[prio] = node->next;
         free(node);
-    } else {//
+    } else {
         LList* temp = node->next;
         node->next = node->next->next;
         free(temp);
@@ -139,8 +139,30 @@ void pop() {
 }
 
 void insert() {
-
-    //maxIndexes[prio]++;
+    int prio = enterPrio() -1;
+    if(maxIndexes[prio] == 0) {
+        printf("Your Queue is Empty Use Add(Push)");
+        return;
+    }
+    show(prio);
+    printf("Which index do you want to insert: ");
+    int index;
+    scanf("%d",&index);
+    LList* node = find(prio,index);
+    LList* temp = memory();
+    if(node == NULL) return;//find function returns null if index doesnt exists
+    UData data;
+    data.priority = prio+1;
+    data.no = enterNo();
+    temp->data = data;
+    if(index == 1) {
+        temp->next = firstQueues[prio];
+        firstQueues[prio] = temp;
+    } else {
+        temp->next = node->next;
+        node->next = temp;
+    }
+    maxIndexes[prio]++;
 }
 
 void begin(){//I could write it in main but nvm this way looks more prettier
