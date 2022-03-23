@@ -126,10 +126,11 @@ void pop() {
     scanf("%d", &index);
     LList *node = find(prio, index);//returns us index-1th node
     if (node == NULL) return;//find function returns null if index doesnt exists
+    //algorithm = https://ibb.co/JzJsML7 (CTRL+RMB)
     if (index == 1) {//if first selected
         firstQueues[prio] = node->next;
         free(node);
-    } else {
+    } else {//
         LList* temp = node->next;
         node->next = node->next->next;
         free(temp);
