@@ -1,0 +1,3 @@
+C:/Users/konta/CLionProjects/kaydirmaliKuyruk/cmake-build-debug/CMakeFiles/kaydirmaliKuyruk.dir
+C:/Users/konta/CLionProjects/kaydirmaliKuyruk/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/konta/CLionProjects/kaydirmaliKuyruk/cmake-build-debug/CMakeFiles/rebuild_cache.dir
