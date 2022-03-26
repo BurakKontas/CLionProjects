@@ -1,0 +1,3 @@
+C:/Users/konta/CLionProjects/linked2/cmake-build-debug/CMakeFiles/linked2.dir
+C:/Users/konta/CLionProjects/linked2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/konta/CLionProjects/linked2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
