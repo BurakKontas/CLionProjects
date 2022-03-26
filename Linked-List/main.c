@@ -30,6 +30,7 @@ struct Node{
 
 typedef struct Node node;
 
+
 int maxIndex = 0;
 
 node* first;

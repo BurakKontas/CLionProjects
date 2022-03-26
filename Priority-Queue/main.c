@@ -90,7 +90,7 @@ LList* find(int prio,int index){
         printf("Out of range (MAX: %d)",maxIndexes[prio]);
         return NULL;
     }
-    if(index == 1 || index == 2) return node;
+    if(index == 0 || index == 1 || index == 2) return node;
     for(int i = 0;i<index-1;++i){//we want previous
         node = node->next;
     }
@@ -137,11 +137,11 @@ void pop() {
     }
     maxIndexes[prio]--;
 }
-
 void insert() {
+    LList* temp = memory();
     int prio = enterPrio() -1;
     if(maxIndexes[prio] == 0) {
-        printf("Your Queue is Empty Use Add(Push)");
+        printf("\bYour Queue is Empty Use Add(Push)\n");
         return;
     }
     show(prio);
@@ -149,7 +149,6 @@ void insert() {
     int index;
     scanf("%d",&index);
     LList* node = find(prio,index);
-    LList* temp = memory();
     if(node == NULL) return;//find function returns null if index doesnt exists
     UData data;
     data.priority = prio+1;
@@ -165,16 +164,50 @@ void insert() {
     maxIndexes[prio]++;
 }
 
+void edit(){
+    int prio = enterPrio() -1;
+    if(maxIndexes[prio] == 0) {
+        printf("\bYour Queue is Empty\n");
+        return;
+    }
+    show(prio);
+    printf("Which index do you want to edit: ");
+    int index;
+    scanf("%d",&index);
+    UData data;
+    LList* willChange = find(prio,index);
+    //TODO:
+    // Check if first or last
+    // Middle datas switching properly
+    data.no = willChange->next->data.no;
+    LList *ttemp = willChange->next;
+    willChange->next = willChange->next->next;
+    willChange = ttemp;//we need exact data
+    printf("\bNew Priority: ");
+    int newPrio;
+    scanf("%d",&newPrio);
+    --newPrio;
+    data.priority = newPrio+1;
+    //printf("\bNew  ");
+    //data.no = enterNo();
+    if(maxIndexes[newPrio] == 0) firstQueues[newPrio]->next = lastQueues[newPrio];
+    lastQueues[newPrio]->data = data;
+    lastQueues[newPrio]->next = willChange;
+    willChange->next = NULL;
+    lastQueues[newPrio] = willChange;
+}
+
 void begin(){//I could write it in main but nvm this way looks more prettier
     for(int i = 0;i<MAXP;++i) {
         firstQueues[i] = memory();
+        lastQueues[i] = memory();
         firstQueues[i]->next = NULL;
         maxIndexes[i] = 0;
     }
 }
 
 int menu(){
-    const char MENU[][MAXM] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Quit"};//unchangeable
+    const char MENU[][MAXM] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Edit","Quit"};//unchangeable
     for (int i = 0; i < sizeof(MENU) / MAXM; ++i) {
         if (i == 0) printf("\b%s\n", MENU[i]);
         else printf("%d-) %s\n", i, MENU[i]);
@@ -217,8 +250,9 @@ int main() {
                 show(i);
             }
             printf("****************\n");
-        }
-        else if(selected == 5){
+        } else if(selected == 5) {
+            edit();
+        } else if(selected == 6){
             printf("\bUser Quited");
             break;
         }
