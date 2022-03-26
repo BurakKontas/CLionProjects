@@ -37,7 +37,7 @@ void show(){
         printf("Stack is empty\n");
         return;
     }
-    int a = 0;
+    char a = 0;
     while(1){
         printf("%d\n",temp->value);
         temp = temp->prev;
@@ -59,7 +59,7 @@ int pop(){
 }
 
 int main(){
-    int a = 0;
+    char a = 0;
     begin();
     push(++a);
     push(++a);
