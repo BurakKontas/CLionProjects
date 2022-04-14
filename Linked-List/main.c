@@ -30,7 +30,6 @@ struct Node{
 
 typedef struct Node node;
 
-
 int maxIndex = 0;
 
 node* first;
@@ -148,17 +147,20 @@ void changeData(node* one,node* two,node* temp) {
 
 void sortedView(int mode){
     node* one = first;
-    node* two = first->next;
+    node* two = one->next;
     node* temp = memory();
     if(mode == 1) {//no
-        for(int i = 0;i<maxIndex;i++){
-            for(int j = 0;j<maxIndex-1;j++) {
+        for (int i = 0; i < maxIndex-1; i++) {
+            if (i != 0) {
+                one = one->next;
+                two = one->next;
+            }
+            for (int j = i+1; j < maxIndex ; j++) {
                 if (one->data.no > two->data.no) {
                     temp->data = one->data;
                     one->data = two->data;
                     two->data = temp->data;
                 }
-                one = one->next;
                 two = two->next;
             }
         }
@@ -207,6 +209,7 @@ int main() {
     first = create(first);
     last = create(last);//might be unnecessary but doesnt have any loss
     char menu[][Num] = {"--MENU--","Add(Push)","Remove(Pop)","Insert","Show","Sorted View","Quit"};
+    int i = 10;
     while(1){
         for(int i = 0;i<sizeof(menu)/Num;i++) {
             if(i == 0) printf("%7s\n",menu[i]);
@@ -216,7 +219,11 @@ int main() {
         printf("Enter a Number: ");
         scanf("%d",&selection);
         if(selection == 1) {
-            dat data = dataCreator();
+            dat data;//= dataCreator();
+            data.no = --i;
+            strcpy(data.address, "Deneme");
+            strcpy(data.name, "Deneme");
+            strcpy(data.surname, "Deneme");
             addNode(data);
         } else if(selection == 2) {
             int value;
